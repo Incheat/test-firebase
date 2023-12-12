@@ -12,6 +12,7 @@ export default defineConfig({
     vueJsx(),
     nightwatchPlugin(),
   ],
+  base: "/test-firebase/", //for github pages action,
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

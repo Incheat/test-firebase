@@ -50,7 +50,7 @@ function showCurrentUserData() {
   window.alert(getUserData(user));
 }
 
-function getUserData(user){
+function getUserData(user: any){
   if (user !== null) {
     // The user object has basic properties such as display name, email, etc.
     const displayName = user.displayName;

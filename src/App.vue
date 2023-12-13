@@ -9,7 +9,7 @@ const account = ref("");
 const pwd = ref("");
 
 
-function loginOrCreate() {
+function login() {
   const email = account.value;
   const password = pwd.value;
   signInWithEmailAndPassword(auth, email, password)
@@ -26,21 +26,42 @@ function loginOrCreate() {
         window.alert(errorCode + ": " + errorMessage);
     });
 }
+
+function create() {
+  const email = account.value;
+  const password = pwd.value;
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed up
+        const user = userCredential.user;
+        window.alert("Create Successed");
+        window.alert(user);
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        window.alert("Create Failed");
+        window.alert(errorCode + ": " + errorMessage);
+    });
+}
 </script>
 
 <template>
   <header>
-    <div>
-      <label for="Account">Account:</label>
-      <input type="text" v-model="account">
-    </div>
-    <div>
-      <label for="Password">Password:</label>
-      <input type="text" v-model="pwd">
-    </div>
-    <div>
-      <button @click="loginOrCreate">Log In</button>
-    </div>
+    <table>
+      <tr>
+        <td>EMAIL</td>
+        <td>PASSWORD</td>
+      </tr>
+      <tr>
+        <td><input type="text" v-model="account"></td>
+        <td><input type="text" v-model="pwd"></td>
+      </tr>
+      <tr>
+        <button @click="login">Sign In</button>
+        <button @click="create">Sign Up</button>
+      </tr>
+    </table>
   </header>
 
   <main>
@@ -74,13 +95,5 @@ header {
     place-items: flex-start;
     flex-wrap: wrap;
   }
-}
-
-div {
-    display: inline-block;
-}
-
-div label {
-    display: block;
 }
 </style>

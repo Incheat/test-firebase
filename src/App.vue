@@ -17,7 +17,7 @@ function login() {
         // Signed in 
         const user = userCredential.user;
         window.alert("Login Successed");
-        window.alert(user);
+        window.alert(getUserData(user));
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -35,7 +35,7 @@ function create() {
         // Signed up
         const user = userCredential.user;
         window.alert("Create Successed");
-        window.alert(user);
+        window.alert(getUserData(user));
     })
     .catch((error) => {
         const errorCode = error.code;
@@ -43,6 +43,28 @@ function create() {
         window.alert("Create Failed");
         window.alert(errorCode + ": " + errorMessage);
     });
+}
+
+function showCurrentUserData() {
+  const user = auth.currentUser;
+  window.alert(getUserData(user));
+}
+
+function getUserData(user){
+  if (user !== null) {
+    // The user object has basic properties such as display name, email, etc.
+    const displayName = user.displayName;
+    const email = user.email;
+    const photoURL = user.photoURL;
+    const emailVerified = user.emailVerified;
+
+    // The user's ID, unique to the Firebase project. Do NOT use
+    // this value to authenticate with your backend server, if
+    // you have one. Use User.getToken() instead.
+    const uid = user.uid;
+    return `DisplayName: {displayName}\n Email: {email}\n PhotoURL: {photoURL}\n EmailVerified: {emailVerified}\n Uid: {uid}\n`;
+  }
+  return "no user";
 }
 </script>
 
@@ -60,6 +82,7 @@ function create() {
       <tr>
         <button @click="login">Sign In</button>
         <button @click="create">Sign Up</button>
+        <button @click="showCurrentUserData">Show Current User Data</button>
       </tr>
     </table>
   </header>

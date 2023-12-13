@@ -61,7 +61,7 @@ function sendEmailVerify(){
     url: `https://incheat.github.io/test-firebase?email=${email}`,
     handleCodeInApp: false
   };
-  (await auth.currentUser).sendEmailVerification(actionCodeSettings)
+  await (await auth.currentUser).sendEmailVerification(actionCodeSettings)
     .then(() => {
         window.alert("Verification email sent");
         // Verification email sent.

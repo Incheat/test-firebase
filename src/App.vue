@@ -132,8 +132,17 @@ function applyAction(){
         <button @click="logout">Sign Out</button>
       </tr>
       <tr>
+        <td>-------------------------------</td>
+      </tr>
+      <tr>
         <button @click="showCurrentUserData">Show Current User Data</button>
         <button @click="showRouteQuery">Show Route Query</button>
+      </tr>
+      <tr>
+        <td>-------------------------------</td>
+      </tr>
+      <tr>
+        <td>oobCode</td>
       </tr>
       <tr>
         <td><input type="text" v-model="oobCode"></td>

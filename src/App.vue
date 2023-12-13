@@ -20,8 +20,8 @@ function loginOrCreate() {
     .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        window.alert("Login Failed"):
-        window.alert(errorCode + ": " + errorMessage):
+        window.alert("Login Failed")
+        window.alert(errorCode + ": " + errorMessage)
     });
 }
 </script>

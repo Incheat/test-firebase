@@ -1,22 +1,43 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import { ref } from "vue"
 
+const auth = getAuth();
 const account = ref("");
 const pwd = ref("");
 
+
+function loginOrCreate() {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        window.alert("Login Successed"):
+        window.alert(user):
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        window.alert("Login Failed"):
+        window.alert(errorCode + ": " + errorMessage):
+    });
+}
 </script>
 
 <template>
   <header>
-    <label for="Account">Account:</label>
-    <input type="text" v-model="account"><br><br>
-    <label for="Password">Password:</label>
-    <input type="text" v-model="pwd"><br><br>
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+    <div>
+      <label for="Account">Account:</label>
+      <input type="text" v-model="account">
+    </div>
+    <div>
+      <label for="Password">Password:</label>
+      <input type="text" v-model="pwd">
+    </div>
+    <div>
+      <button @click="loginOrCreate">Log In</button>
     </div>
   </header>
 
@@ -51,5 +72,13 @@ header {
     place-items: flex-start;
     flex-wrap: wrap;
   }
+}
+
+div {
+    display: inline-block;
+}
+
+div label {
+    display: block;
 }
 </style>

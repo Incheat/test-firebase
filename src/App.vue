@@ -56,22 +56,19 @@ function create() {
 }
 
 function sendEmailVerify(){
-  const user = auth.currentUser;
   const email = account.value;
   const actionCodeSettings = {
     url: `https://incheat.github.io/test-firebase?email=${email}`,
     handleCodeInApp: false
   };
-  if (user !== null) {
-    user.sendEmailVerification(actionCodeSettings)
-    .then(function() {
+  (await auth.currentUser).sendEmailVerification(actionCodeSettings)
+    .then(() => {
         window.alert("Verification email sent");
         // Verification email sent.
     })
-    .catch(function(error) {
+    .catch((error) => {
         window.alert("Email sent Failed");
     });
-  }
 }
 
 function showCurrentUserData() {

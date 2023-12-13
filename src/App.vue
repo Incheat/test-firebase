@@ -10,6 +10,8 @@ const pwd = ref("");
 
 
 function loginOrCreate() {
+  const email = account.value;
+  const password = pwd.value;
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed in 

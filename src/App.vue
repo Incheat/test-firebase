@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { ref } from "vue"
 
 const auth = getAuth();
 const account = ref("");
 const pwd = ref("");
+
+function logout() {
+  signOut(auth).then(() => {
+    // Sign-out successful.
+    window.alert("Logout Successed");
+  }).catch((error) => {
+    // An error happened.
+    window.alert("Logout failed");
+  });
+}
 
 
 function login() {
@@ -82,6 +92,7 @@ function getUserData(user: any){
       <tr>
         <button @click="login">Sign In</button>
         <button @click="create">Sign Up</button>
+        <button @click="logout">Sign Out</button>
         <button @click="showCurrentUserData">Show Current User Data</button>
       </tr>
     </table>

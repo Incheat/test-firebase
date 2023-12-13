@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, checkActionCode, applyActionCode, signOut } from "firebase/auth";
 import { ref } from "vue"
 
 const auth = getAuth();
 const account = ref("");
 const pwd = ref("");
+const oobCode = ref("");
 
 function logout() {
   signOut(auth).then(() => {
@@ -103,6 +104,15 @@ function getUserData(user: any){
   }
   return "no user";
 }
+
+function applyAction(){
+  const actionCode = oobCode.value;
+  applyActionCode(auth, actionCode).then((resp) => {
+      window.alert("Email address has been verified");
+  }).catch((error) => {
+      window.alert("Code is invalid or expired");
+  });
+}
 </script>
 
 <template>
@@ -120,16 +130,22 @@ function getUserData(user: any){
         <button @click="login">Sign In</button>
         <button @click="create">Sign Up</button>
         <button @click="logout">Sign Out</button>
-        <button @click="sendEmailVerify">Send Email to Verify</button>
+      </tr>
+      <tr>
         <button @click="showCurrentUserData">Show Current User Data</button>
         <button @click="showRouteQuery">Show Route Query</button>
+      </tr>
+      <tr>
+        <td><input type="text" v-model="oobCode"></td>
+      </tr>
+      <tr>
+        <button @click="sendEmailVerify">Send Email to Verify</button>
+        <button @click="applyAction">Send Email to Verify</button>
       </tr>
     </table>
   </header>
 
-  <main>
-    <TheWelcome />
-  </main>
+  <main></main>
 </template>
 
 <style scoped>

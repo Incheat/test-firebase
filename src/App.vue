@@ -62,14 +62,18 @@ function sendEmailVerify(){
     url: `https://incheat.github.io/test-firebase?email=${email}`,
     handleCodeInApp: false
   };
-  sendEmailVerification(user, actionCodeSettings)
-    .then(() => {
+  if (user !== null) {
+    sendEmailVerification(user, actionCodeSettings)
+      .then(() => {
         window.alert("Verification email sent");
         // Verification email sent.
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         window.alert("Email sent Failed");
-    });
+      });
+  }else {
+    window.alert("No User, Email sent Failed");
+  }
 }
 
 function showCurrentUserData() {

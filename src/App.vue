@@ -120,6 +120,7 @@ function getUserData(user: any){
         <button @click="login">Sign In</button>
         <button @click="create">Sign Up</button>
         <button @click="logout">Sign Out</button>
+        <button @click="sendEmailVerify">Send Email to Verify</button>
         <button @click="showCurrentUserData">Show Current User Data</button>
         <button @click="showRouteQuery">Show Route Query</button>
       </tr>

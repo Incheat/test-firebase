@@ -3,8 +3,10 @@ import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { ref } from "vue"
+import { useRoute } from 'vue-router';
 
 const auth = getAuth();
+const route = useRoute();
 const account = ref("");
 const pwd = ref("");
 
@@ -55,9 +57,32 @@ function create() {
     });
 }
 
+function sendEmailVerify(){
+  const user = auth.currentUser;
+  const email = account.value;
+  const actionCodeSettings = {
+    url: `https://incheat.github.io/test-firebase?email=${email}`,
+    handleCodeInApp: false
+  };
+  if (user !== null) {
+    user.sendEmailVerification(actionCodeSettings)
+    .then(function() {
+        window.alert("Verification email sent");
+        // Verification email sent.
+    })
+    .catch(function(error) {
+        window.alert("Email sent Failed");
+    });
+  }
+}
+
 function showCurrentUserData() {
   const user = auth.currentUser;
   window.alert(getUserData(user));
+}
+
+function showRouteQuery() {
+  window.alert(route.query);
 }
 
 function getUserData(user: any){
@@ -94,6 +119,7 @@ function getUserData(user: any){
         <button @click="create">Sign Up</button>
         <button @click="logout">Sign Out</button>
         <button @click="showCurrentUserData">Show Current User Data</button>
+        <button @click="showRouteQuery">Show Route Query</button>
       </tr>
     </table>
   </header>

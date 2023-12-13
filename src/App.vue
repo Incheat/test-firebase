@@ -1,11 +1,19 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
+import { ref } from "vue"
+
+const account = ref("");
+const pwd = ref("");
+
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <label for="Account">Account:</label>
+    <input type="text" v-model="account"><br><br>
+    <label for="Password">Password:</label>
+    <input type="text" v-model="pwd"><br><br>
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />

@@ -113,6 +113,16 @@ function applyAction(){
       window.alert("Code is invalid or expired");
   });
 }
+
+function reload() {
+  const user = auth.currentUser;
+  if (user !== null) {
+    user.reload();
+    window.alert("Reloaded");
+  }else {
+    window.alert("Error wheb reloading");
+  }
+}
 </script>
 
 <template>
@@ -130,6 +140,7 @@ function applyAction(){
         <button @click="login">Sign In</button>
         <button @click="create">Sign Up</button>
         <button @click="logout">Sign Out</button>
+        <button @click="reload">Reload</button>
       </tr>
       <tr>
         <td>-------------------------------</td>

@@ -3,10 +3,8 @@ import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "firebase/auth";
 import { ref } from "vue"
-import { useRoute } from 'vue-router';
 
 const auth = getAuth();
-const route = useRoute();
 const account = ref("");
 const pwd = ref("");
 
@@ -82,7 +80,9 @@ function showCurrentUserData() {
 }
 
 function showRouteQuery() {
-  window.alert(route.query);
+  const urlParams = new URLSearchParams(window.location.search);
+  const paramsEmail = urlParams.get('email');
+  window.alert(paramsEmail);
 }
 
 function getUserData(user: any){

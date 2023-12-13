@@ -62,7 +62,7 @@ function getUserData(user: any){
     // this value to authenticate with your backend server, if
     // you have one. Use User.getToken() instead.
     const uid = user.uid;
-    return `DisplayName: {displayName}\n Email: {email}\n PhotoURL: {photoURL}\n EmailVerified: {emailVerified}\n Uid: {uid}\n`;
+    return `DisplayName: ${displayName}\n Email: ${email}\n PhotoURL: ${photoURL}\n EmailVerified: ${emailVerified}\n Uid: ${uid}\n`;
   }
   return "no user";
 }

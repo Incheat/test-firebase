@@ -149,7 +149,7 @@ function applyAction(){
       </tr>
       <tr>
         <button @click="sendEmailVerify">Send Email to Verify</button>
-        <button @click="applyAction">Send Email to Verify</button>
+        <button @click="applyAction">Apply oobCode</button>
       </tr>
     </table>
   </header>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import { getAuth, updateEmail, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, checkActionCode, applyActionCode, signOut } from "firebase/auth";
+import { getAuth, verifyBeforeUpdateEmail, updateEmail, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, checkActionCode, applyActionCode, signOut } from "firebase/auth";
 import { ref } from "vue"
 
 const auth = getAuth();
@@ -144,6 +144,27 @@ function update() {
     window.alert("Error when Email updating");
   }
 }
+
+function verify() {
+  const newEmail = account.value;
+  const user = auth.currentUser;
+  if (user !== null) {
+    verifyBeforeUpdateEmail(user, newEmail).then(() => {
+      // Email updated!
+      // ...
+      window.alert("New Email Verified!");
+    }).catch((error) => {
+      // An error occurred
+      // ...
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      window.alert("Verify Failed");
+      window.alert(errorCode + ": " + errorMessage);
+    });
+  }else {
+    window.alert("Error when Email Verifying");
+  }
+}
 </script>
 
 <template>
@@ -161,7 +182,8 @@ function update() {
         <button @click="login">Sign In</button>
         <button @click="create">Sign Up</button>
         <button @click="logout">Sign Out</button>
-        <button @click="update">Update Emailt</button>
+        <button @click="verify">Verify New Email</button>
+        <button @click="update">Update Email</button>
         <button @click="reload">Reload</button>
       </tr>
       <tr>

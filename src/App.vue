@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, checkActionCode, applyActionCode, signOut } from "firebase/auth";
+import { getAuth, updateEmail, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, checkActionCode, applyActionCode, signOut } from "firebase/auth";
 import { ref } from "vue"
 
 const auth = getAuth();
@@ -123,6 +123,19 @@ function reload() {
     window.alert("Error wheb reloading");
   }
 }
+
+function update() {
+  const newEmail = account.value;
+  updateEmail(auth.currentUser, newEmail).then(() => {
+    // Email updated!
+    // ...
+    window.alert("Email updated!");
+  }).catch((error) => {
+    // An error occurred
+    // ...
+    window.alert("Email updated! Error");
+  });
+}
 </script>
 
 <template>
@@ -140,6 +153,7 @@ function reload() {
         <button @click="login">Sign In</button>
         <button @click="create">Sign Up</button>
         <button @click="logout">Sign Out</button>
+        <button @click="update">Update Emailt</button>
         <button @click="reload">Reload</button>
       </tr>
       <tr>

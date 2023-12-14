@@ -117,8 +117,14 @@ function applyAction(){
 function reload() {
   const user = auth.currentUser;
   if (user !== null) {
-    user.reload();
-    window.alert("Reloaded");
+    user.reload().then(() => {
+      window.alert("Reloaded");
+    }).catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      window.alert("Reloaded Error");
+      window.alert(errorCode + ": " + errorMessage);
+    });
   }else {
     window.alert("Error when reloading");
   }

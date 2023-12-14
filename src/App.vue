@@ -135,7 +135,10 @@ function update() {
     }).catch((error) => {
       // An error occurred
       // ...
-      window.alert("Email updated! Error");
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      window.alert("Update Failed");
+      window.alert(errorCode + ": " + errorMessage);
     });
   }else {
     window.alert("Error when Email updating");

@@ -120,21 +120,26 @@ function reload() {
     user.reload();
     window.alert("Reloaded");
   }else {
-    window.alert("Error wheb reloading");
+    window.alert("Error when reloading");
   }
 }
 
 function update() {
   const newEmail = account.value;
-  updateEmail(auth.currentUser, newEmail).then(() => {
-    // Email updated!
-    // ...
-    window.alert("Email updated!");
-  }).catch((error) => {
-    // An error occurred
-    // ...
-    window.alert("Email updated! Error");
-  });
+  const user = auth.currentUser;
+  if (user !== null) {
+    updateEmail(user, newEmail).then(() => {
+      // Email updated!
+      // ...
+      window.alert("Email updated!");
+    }).catch((error) => {
+      // An error occurred
+      // ...
+      window.alert("Email updated! Error");
+    });
+  }else {
+    window.alert("Error when Email updating");
+  }
 }
 </script>
 

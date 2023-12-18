@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
-import { getAuth, verifyBeforeUpdateEmail, updateEmail, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, checkActionCode, applyActionCode, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailLink, sendSignInLinkToEmail, verifyBeforeUpdateEmail, updateEmail, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, checkActionCode, applyActionCode, signOut } from "firebase/auth";
 import { ref } from "vue"
 
 const auth = getAuth();
@@ -75,6 +75,41 @@ function sendEmailVerify(){
   }else {
     window.alert("No User, Email sent Failed");
   }
+}
+
+function sendSignInLink(){
+  const email = account.value;
+  const actionCodeSettings = {
+    url: `https://incheat.github.io/test-firebase?email=${email}`,
+    handleCodeInApp: false
+  };
+  sendSignInLinkToEmail(auth, email, actionCodeSettings)
+    .then(() => {
+      window.alert("SignInLink email sent");
+      // Verification email sent.
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      window.alert("sendSignInLink Error");
+      window.alert(errorCode + ": " + errorMessage);
+    });
+}
+
+//signInWithEmailLink
+function loginWithSignInLink() {
+  const email = account.value;
+  signInWithEmailLink(auth, email, window.location.href)
+    .then(() => {
+      window.alert("loginWithSignInLink successed");
+      // Verification email sent.
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      window.alert("loginWithSignInLink Error");
+      window.alert(errorCode + ": " + errorMessage);
+    });
 }
 
 function showCurrentUserData() {
@@ -161,24 +196,24 @@ function update() {
   }
 }
 
-function verify() {
+function sendUpdateEmail() {
   const newEmail = account.value;
   const user = auth.currentUser;
   if (user !== null) {
     verifyBeforeUpdateEmail(user, newEmail).then(() => {
       // Email updated!
       // ...
-      window.alert("New Email Verified!");
+      window.alert("sendUpdateEmail sent!");
     }).catch((error) => {
       // An error occurred
       // ...
       const errorCode = error.code;
       const errorMessage = error.message;
-      window.alert("Verify Failed");
+      window.alert("send UpdateEmail Failed");
       window.alert(errorCode + ": " + errorMessage);
     });
   }else {
-    window.alert("Error when Email Verifying");
+    window.alert("Error when send update Email");
   }
 }
 </script>
@@ -196,9 +231,9 @@ function verify() {
       </tr>
       <tr>
         <button @click="login">Sign In</button>
+        <button @click="loginWithSignInLink">Sign In with Sign In Link</button>
         <button @click="create">Sign Up</button>
         <button @click="logout">Sign Out</button>
-        <button @click="verify">Verify New Email</button>
         <button @click="update">Update Email</button>
         <button @click="reload">Reload</button>
       </tr>
@@ -220,6 +255,8 @@ function verify() {
       </tr>
       <tr>
         <button @click="sendEmailVerify">Send Email to Verify</button>
+        <button @click="sendUpdateEmail">Send Email to Update</button>
+        <button @click="sendSignInLink">Send Email to Sign In</button>
         <button @click="applyAction">Apply oobCode</button>
         <button @click="applyActionAndAutoLogin">Apply oobCode with relogin</button>
       </tr>

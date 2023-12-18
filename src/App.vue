@@ -81,7 +81,7 @@ function sendSignInLink(){
   const email = account.value;
   const actionCodeSettings = {
     url: `https://incheat.github.io/test-firebase`,
-    handleCodeInApp: false
+    handleCodeInApp: true
   };
   sendSignInLinkToEmail(auth, email, actionCodeSettings)
     .then(() => {

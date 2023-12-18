@@ -114,6 +114,16 @@ function applyAction(){
   });
 }
 
+function applyActionAndAutoLogin(){
+  const actionCode = oobCode.value;
+  applyActionCode(auth, actionCode).then((resp) => {
+      window.alert("Email address has been verified");
+      login();
+  }).catch((error) => {
+      window.alert("Code is invalid or expired");
+  });
+}
+
 function reload() {
   const user = auth.currentUser;
   if (user !== null) {
@@ -211,6 +221,7 @@ function verify() {
       <tr>
         <button @click="sendEmailVerify">Send Email to Verify</button>
         <button @click="applyAction">Apply oobCode</button>
+        <button @click="applyActionAndAutoLogin">Apply oobCode with relogin</button>
       </tr>
     </table>
   </header>

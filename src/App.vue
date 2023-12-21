@@ -230,11 +230,11 @@ function sendUpdateEmail() {
         <td><input type="text" v-model="pwd"></td>
       </tr>
       <tr>
-        <button @click="login">Sign In</button>
-        <button @click="loginWithSignInLink">Sign In with Sign In Link</button>
-        <button @click="create">Sign Up</button>
-        <button @click="logout">Sign Out</button>
-        <button @click="update">Update Email</button>
+        <button @click="login">SignInWithEmailAndPassword</button>
+        <button @click="loginWithSignInLink">SignInWithEmailLink</button>
+        <button @click="create">CreateUserWithEmailAndPassword</button>
+        <button @click="logout">SignOut</button>
+        <button @click="update">UpdateEmail</button>
         <button @click="reload">Reload</button>
       </tr>
       <tr>
@@ -254,11 +254,11 @@ function sendUpdateEmail() {
         <td><input type="text" v-model="oobCode"></td>
       </tr>
       <tr>
-        <button @click="sendEmailVerify">Send Email to Verify</button>
-        <button @click="sendUpdateEmail">Send Email to Update</button>
-        <button @click="sendSignInLink">Send Email to Sign In</button>
-        <button @click="applyAction">Apply oobCode</button>
-        <button @click="applyActionAndAutoLogin">Apply oobCode with relogin</button>
+        <button @click="sendEmailVerify">SendEmailVerification</button>
+        <button @click="sendUpdateEmail">VerifyBeforeUpdateEmail</button>
+        <button @click="sendSignInLink">SendSignInLinkToEmail</button>
+        <button @click="applyAction">ApplyActionCode</button>
+        <button @click="applyActionAndAutoLogin">ApplyActionCode and Relogin</button>
       </tr>
     </table>
   </header>
